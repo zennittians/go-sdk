@@ -158,7 +158,7 @@ func (typedData *TypedData) String() (string, error) {
 		} else {
 			formatted.Message["choice"] = choice
 		}
-	// prevent hex choice interpretation
+		// prevent hex choice interpretation
 	} else if typedData.Types["Vote"][4].Type == "uint32[]" {
 		arr := typedData.Message["choice"].([]interface{})
 		res := make([]uint64, len(arr))

@@ -18,7 +18,7 @@ import (
 	"github.com/zennittians/golang-sdk/pkg/transaction"
 	"github.com/zennittians/golang-sdk/pkg/validation"
 	"github.com/zennittians/intelchain/accounts"
-	"github.com/zennittians/intelchain/core"
+	"github.com/zennittians/intelchain/core/vm"
 
 	"github.com/spf13/cobra"
 )
@@ -153,7 +153,7 @@ func handlerForTransaction(txLog *transactionLog) error {
 
 	var gLimit uint64
 	if gasLimit == "" {
-		gLimit, err = core.IntrinsicGas([]byte(""), false, true, true, false)
+		gLimit, err = vm.IntrinsicGas([]byte(""), false, true, true, false)
 		if handlerForError(txLog, err) != nil {
 			return err
 		}

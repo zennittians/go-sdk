@@ -22,7 +22,7 @@ import (
 	"github.com/zennittians/intelchain/accounts"
 	"github.com/zennittians/intelchain/accounts/keystore"
 	"github.com/zennittians/intelchain/common/denominations"
-	"github.com/zennittians/intelchain/core"
+	"github.com/zennittians/intelchain/core/vm"
 	"github.com/zennittians/intelchain/crypto/bls"
 	"github.com/zennittians/intelchain/numeric"
 	"github.com/zennittians/intelchain/shard"
@@ -99,7 +99,7 @@ func createStakingTransaction(nonce uint64, f staking.StakeMsgFulfiller) (*staki
 	var gLimit uint64
 	if gasLimit == "" {
 		isCreateValidator := directive == staking.DirectiveCreateValidator
-		gLimit, err = core.IntrinsicGas(data, false, true, true, isCreateValidator)
+		gLimit, err = vm.IntrinsicGas(data, false, true, true, isCreateValidator)
 		if err != nil {
 			return nil, err
 		}
@@ -385,11 +385,11 @@ Create a new validator"
 			}
 
 			desc, err := ensureLength(staking.Description{
-				validatorName,
-				validatorIdentity,
-				validatorWebsite,
-				validatorSecurityContact,
-				validatorDetails,
+				Name:            validatorName,
+				Identity:        validatorIdentity,
+				Website:         validatorWebsite,
+				SecurityContact: validatorSecurityContact,
+				Details:         validatorDetails,
 			})
 			if err != nil {
 				return err
@@ -397,17 +397,17 @@ Create a new validator"
 
 			delegateStakePayloadMaker := func() (staking.Directive, interface{}) {
 				return staking.DirectiveCreateValidator, staking.CreateValidator{
-					address.Parse(validatorAddress.String()),
-					desc,
-					staking.CommissionRates{
-						commisionRate,
-						commisionMaxRate,
-						commisionMaxChangeRate},
-					minSelfDel.RoundInt(),
-					maxTotalDel.RoundInt(),
-					blsPubKeys,
-					blsSigs,
-					amt.RoundInt(),
+					ValidatorAddress: address.Parse(validatorAddress.String()),
+					Description:      desc,
+					CommissionRates: staking.CommissionRates{
+						Rate:          commisionRate,
+						MaxRate:       commisionMaxRate,
+						MaxChangeRate: commisionMaxChangeRate},
+					MinSelfDelegation:  minSelfDel.RoundInt(),
+					MaxTotalDelegation: maxTotalDel.RoundInt(),
+					SlotPubKeys:        blsPubKeys,
+					SlotKeySigs:        blsSigs,
+					Amount:             amt.RoundInt(),
 				}
 			}
 
@@ -559,11 +559,11 @@ Create a new validator"
 			}
 
 			desc, err := ensureLength(staking.Description{
-				validatorName,
-				validatorIdentity,
-				validatorWebsite,
-				validatorSecurityContact,
-				validatorDetails,
+				Name:            validatorName,
+				Identity:        validatorIdentity,
+				Website:         validatorWebsite,
+				SecurityContact: validatorSecurityContact,
+				Details:         validatorDetails,
 			})
 			if err != nil {
 				return err
@@ -584,15 +584,15 @@ Create a new validator"
 
 			delegateStakePayloadMaker := func() (staking.Directive, interface{}) {
 				return staking.DirectiveEditValidator, staking.EditValidator{
-					address.Parse(validatorAddress.String()),
-					desc,
-					commisionRate,
-					mSelDel,
-					mTotalDel,
-					shardPubKeyRemove,
-					shardPubKeyAdd,
-					sigBls,
-					EposStat,
+					ValidatorAddress:   address.Parse(validatorAddress.String()),
+					Description:        desc,
+					CommissionRate:     commisionRate,
+					MinSelfDelegation:  mSelDel,
+					MaxTotalDelegation: mTotalDel,
+					SlotKeyToRemove:    shardPubKeyRemove,
+					SlotKeyToAdd:       shardPubKeyAdd,
+					SlotKeyToAddSig:    sigBls,
+					EPOSStatus:         EposStat,
 				}
 			}
 
@@ -666,9 +666,9 @@ Delegating to a validator
 				amt = amt.Mul(itcAsDec)
 
 				return staking.DirectiveDelegate, staking.Delegate{
-					address.Parse(delegatorAddress.String()),
-					address.Parse(validatorAddress.String()),
-					amt.RoundInt(),
+					DelegatorAddress: address.Parse(delegatorAddress.String()),
+					ValidatorAddress: address.Parse(validatorAddress.String()),
+					Amount:           amt.RoundInt(),
 				}
 			}
 
@@ -733,9 +733,9 @@ Delegating to a validator
 				amt = amt.Mul(itcAsDec)
 
 				return staking.DirectiveUndelegate, staking.Undelegate{
-					address.Parse(delegatorAddress.String()),
-					address.Parse(validatorAddress.String()),
-					amt.RoundInt(),
+					DelegatorAddress: address.Parse(delegatorAddress.String()),
+					ValidatorAddress: address.Parse(validatorAddress.String()),
+					Amount:           amt.RoundInt(),
 				}
 			}
 
@@ -792,7 +792,7 @@ Collect token rewards
 
 			delegateStakePayloadMaker := func() (staking.Directive, interface{}) {
 				return staking.DirectiveCollectRewards, staking.CollectRewards{
-					address.Parse(delegatorAddress.String()),
+					DelegatorAddress: address.Parse(delegatorAddress.String()),
 				}
 			}
 
