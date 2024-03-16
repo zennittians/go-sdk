@@ -13,7 +13,7 @@ require (
 	github.com/fatih/color v1.9.0
 	github.com/golang/snappy v0.0.2-0.20200707131729-196ae77b8a26 // indirect
 	github.com/zennittians/bls v0.0.6
-	github.com/zennittians/intelchain v1.10.2-0.20210123081216-6993b9ad0ca1
+	github.com/zennittians/intelchain v1.10.2
 	github.com/karalabe/usb v0.0.0-20190919080040-51dc0efba356
 	github.com/mattn/go-colorable v0.1.9
 	github.com/mitchellh/go-homedir v1.1.0
