@@ -2,12 +2,11 @@ package console
 
 import (
 	"fmt"
-	"strconv"
-
 	"github.com/dop251/goja"
 	"github.com/zennittians/intelchain/accounts"
 	"github.com/zennittians/intelchain/accounts/keystore"
 	"github.com/zennittians/intelchain/crypto/hash"
+	"strconv"
 )
 
 func signMessageWithPassword(keyStore *keystore.KeyStore, account accounts.Account, password string, data []byte) (sign []byte, err error) {

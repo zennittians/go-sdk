@@ -17,7 +17,7 @@ import (
 	"github.com/zennittians/golang-sdk/pkg/store"
 	"github.com/zennittians/golang-sdk/pkg/transaction"
 	"github.com/zennittians/intelchain/accounts"
-	"github.com/zennittians/intelchain/core/vm"
+	"github.com/zennittians/intelchain/core"
 
 	"github.com/spf13/cobra"
 )
@@ -86,7 +86,7 @@ func ethHandlerForTransaction(txLog *transactionLog) error {
 
 	var gLimit uint64
 	if gasLimit == "" {
-		gLimit, err = vm.IntrinsicGas([]byte(""), false, true, true, false)
+		gLimit, err = core.IntrinsicGas([]byte(""), false, true, true, false)
 		if handlerForError(txLog, err) != nil {
 			return err
 		}
@@ -287,8 +287,8 @@ Create an Ethereum compatible transaction, sign it, and send off to the Intelcha
 	cmdEthTransfer.Flags().BoolVar(&dryRun, "dry-run", false, "do not send signed transaction")
 	cmdEthTransfer.Flags().BoolVar(&offlineSign, "offline-sign", false, "output offline signing")
 	cmdEthTransfer.Flags().BoolVar(&trueNonce, "true-nonce", false, "send transaction with on-chain nonce")
-	cmdEthTransfer.Flags().StringVar(&amount, "amount", "0", "amount to send (ITC)")
-	cmdEthTransfer.Flags().StringVar(&gasPrice, "gas-price", "100", "gas price to pay (INTELLO)")
+	cmdEthTransfer.Flags().StringVar(&amount, "amount", "0", "amount to send (ONE)")
+	cmdEthTransfer.Flags().StringVar(&gasPrice, "gas-price", "100", "gas price to pay (NANO)")
 	cmdEthTransfer.Flags().StringVar(&gasLimit, "gas-limit", "", "gas limit")
 	cmdEthTransfer.Flags().StringVar(&inputNonce, "nonce", "", "set nonce for tx")
 	cmdEthTransfer.Flags().StringVar(&data, "data", "", "transaction data")

@@ -53,7 +53,7 @@ var (
 	// RootCmd is single entry point of the CLI
 	RootCmd = &cobra.Command{
 		Use:          "itc",
-		Short:        "Intelchain blockchain",
+		Short:        "intelchain blockchain",
 		SilenceUsage: true,
 		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 			if verbose {
@@ -112,7 +112,7 @@ var (
 			return nil
 		},
 		Long: fmt.Sprintf(`
-CLI interface to the Intelchain blockchain
+CLI interface to the intelchain blockchain
 
 %s`, g("Invoke 'itc cookbook' for examples of the most common, important usages")),
 		RunE: func(cmd *cobra.Command, args []string) error {

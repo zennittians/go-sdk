@@ -341,7 +341,7 @@ func keysSub() []*cobra.Command {
 		Short: "Generates multiple bls keys for a given shard network configuration and then encrypts and saves the private key with a requested passphrase",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if err := validation.ValidateNodeConnection(node); err != nil {
-				fmt.Fprintf(os.Stderr, "Cannot connect to node %v, using Intelchain mainnet endpoint %v\n",
+				fmt.Fprintf(os.Stderr, "Cannot connect to node %v, using intelchain mainnet endpoint %v\n",
 					node, defaultMainnetEndpoint)
 				node = defaultMainnetEndpoint
 			}

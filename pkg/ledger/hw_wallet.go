@@ -39,26 +39,26 @@ func getLedger() *NanoS {
 // ProcessAddressCommand list the address associated with Ledger Nano S
 func GetAddress() string {
 	n := getLedger()
-	itcAddr, err := n.GetAddress()
+	oneAddr, err := n.GetAddress()
 	if err != nil {
-		log.Fatalln("Couldn't get itc address:", err)
+		log.Fatalln("Couldn't get one address:", err)
 		os.Exit(-1)
 	}
 
-	return itcAddr
+	return oneAddr
 }
 
 // ProcessAddressCommand list the address associated with Ledger Nano S
 func ProcessAddressCommand() {
 	n := getLedger()
-	itcAddr, err := n.GetAddress()
+	oneAddr, err := n.GetAddress()
 	if err != nil {
-		log.Fatalln("Couldn't get itc address:", err)
+		log.Fatalln("Couldn't get one address:", err)
 		os.Exit(-1)
 	}
 
 	fmt.Printf("%-24s\t\t%23s\n", "NAME", "ADDRESS")
-	fmt.Printf("%-48s\t%s\n", "Ledger Nano S", itcAddr)
+	fmt.Printf("%-48s\t%s\n", "Ledger Nano S", oneAddr)
 }
 
 // SignTx signs the given transaction with the requested account.
@@ -117,7 +117,7 @@ func SignTx(tx *types.Transaction, chainID *big.Int) ([]byte, string, error) {
 	}
 
 	pubBytes := crypto.Keccak256(pubkey[1:65])[12:]
-	signerAddr, _ := address.ConvertAndEncode("itc", pubBytes)
+	signerAddr, _ := address.ConvertAndEncode("one", pubBytes)
 
 	var r, s, v *big.Int
 	if chainID != nil {
@@ -217,7 +217,7 @@ func SignStakingTx(tx *staking.StakingTransaction, chainID *big.Int) (*staking.S
 	}
 
 	pubBytes := crypto.Keccak256(pubkey[1:65])[12:]
-	signerAddr, _ := address.ConvertAndEncode("itc", pubBytes)
+	signerAddr, _ := address.ConvertAndEncode("one", pubBytes)
 
 	// WithSignature returns a new transaction with the given signature.
 	rawTx, err := tx.WithSignature(staking.NewEIP155Signer(chainID), sig[:])

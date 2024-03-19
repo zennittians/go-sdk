@@ -22,7 +22,7 @@ import (
 	"github.com/zennittians/intelchain/accounts"
 	"github.com/zennittians/intelchain/accounts/keystore"
 	"github.com/zennittians/intelchain/common/denominations"
-	"github.com/zennittians/intelchain/core/vm"
+	"github.com/zennittians/intelchain/core"
 	"github.com/zennittians/intelchain/crypto/bls"
 	"github.com/zennittians/intelchain/numeric"
 	"github.com/zennittians/intelchain/shard"
@@ -66,8 +66,8 @@ var (
 	errSelfDelegationTooSmall          = errors.New("amount can not be less than min-self-delegation")
 	errSelfDelegationTooLarge          = errors.New("amount can not be greater than max-total-delegation")
 	errInvalidTotalDelegation          = errors.New("max-total-delegation can not be bigger than max-total-delegation")
-	errMinSelfDelegationTooSmall       = errors.New("min-self-delegation can not be less than 1 ITC")
-	errMaxTotalDelegationTooSmall      = errors.New("max-total-delegation can not be less than 1 ITC")
+	errMinSelfDelegationTooSmall       = errors.New("min-self-delegation can not be less than 1 ONE")
+	errMaxTotalDelegationTooSmall      = errors.New("max-total-delegation can not be less than 1 ONE")
 	errInvalidMaxTotalDelegation       = errors.New("max-total-delegation can not be less than min-self-delegation")
 	errCommissionRateTooLarge          = errors.New("rate can not be greater than max-commission-rate")
 	errChangeRateTooLarge              = errors.New("max-change-rate can not be greater than max-commission-rate")
@@ -99,7 +99,7 @@ func createStakingTransaction(nonce uint64, f staking.StakeMsgFulfiller) (*staki
 	var gLimit uint64
 	if gasLimit == "" {
 		isCreateValidator := directive == staking.DirectiveCreateValidator
-		gLimit, err = vm.IntrinsicGas(data, false, true, true, isCreateValidator)
+		gLimit, err = core.IntrinsicGas(data, false, true, true, isCreateValidator)
 		if err != nil {
 			return nil, err
 		}
@@ -200,7 +200,7 @@ func confirmTx(networkHandler *rpc.HTTPMessenger, confirmWaitTime uint32, txHash
 }
 
 func delegationAmountSanityCheck(minSelfDelegation *numeric.Dec, maxTotalDelegation *numeric.Dec, amount *numeric.Dec) error {
-	// MinSelfDelegation must be >= 1 ITC
+	// MinSelfDelegation must be >= 1 ONE
 	if minSelfDelegation != nil && minSelfDelegation.LT(itcAsDec) {
 		return errMinSelfDelegationTooSmall
 	}
@@ -385,11 +385,11 @@ Create a new validator"
 			}
 
 			desc, err := ensureLength(staking.Description{
-				Name:            validatorName,
-				Identity:        validatorIdentity,
-				Website:         validatorWebsite,
-				SecurityContact: validatorSecurityContact,
-				Details:         validatorDetails,
+				validatorName,
+				validatorIdentity,
+				validatorWebsite,
+				validatorSecurityContact,
+				validatorDetails,
 			})
 			if err != nil {
 				return err
@@ -397,17 +397,17 @@ Create a new validator"
 
 			delegateStakePayloadMaker := func() (staking.Directive, interface{}) {
 				return staking.DirectiveCreateValidator, staking.CreateValidator{
-					ValidatorAddress: address.Parse(validatorAddress.String()),
-					Description:      desc,
-					CommissionRates: staking.CommissionRates{
-						Rate:          commisionRate,
-						MaxRate:       commisionMaxRate,
-						MaxChangeRate: commisionMaxChangeRate},
-					MinSelfDelegation:  minSelfDel.RoundInt(),
-					MaxTotalDelegation: maxTotalDel.RoundInt(),
-					SlotPubKeys:        blsPubKeys,
-					SlotKeySigs:        blsSigs,
-					Amount:             amt.RoundInt(),
+					address.Parse(validatorAddress.String()),
+					desc,
+					staking.CommissionRates{
+						commisionRate,
+						commisionMaxRate,
+						commisionMaxChangeRate},
+					minSelfDel.RoundInt(),
+					maxTotalDel.RoundInt(),
+					blsPubKeys,
+					blsSigs,
+					amt.RoundInt(),
 				}
 			}
 
@@ -559,11 +559,11 @@ Create a new validator"
 			}
 
 			desc, err := ensureLength(staking.Description{
-				Name:            validatorName,
-				Identity:        validatorIdentity,
-				Website:         validatorWebsite,
-				SecurityContact: validatorSecurityContact,
-				Details:         validatorDetails,
+				validatorName,
+				validatorIdentity,
+				validatorWebsite,
+				validatorSecurityContact,
+				validatorDetails,
 			})
 			if err != nil {
 				return err
@@ -584,15 +584,15 @@ Create a new validator"
 
 			delegateStakePayloadMaker := func() (staking.Directive, interface{}) {
 				return staking.DirectiveEditValidator, staking.EditValidator{
-					ValidatorAddress:   address.Parse(validatorAddress.String()),
-					Description:        desc,
-					CommissionRate:     commisionRate,
-					MinSelfDelegation:  mSelDel,
-					MaxTotalDelegation: mTotalDel,
-					SlotKeyToRemove:    shardPubKeyRemove,
-					SlotKeyToAdd:       shardPubKeyAdd,
-					SlotKeyToAddSig:    sigBls,
-					EPOSStatus:         EposStat,
+					address.Parse(validatorAddress.String()),
+					desc,
+					commisionRate,
+					mSelDel,
+					mTotalDel,
+					shardPubKeyRemove,
+					shardPubKeyAdd,
+					sigBls,
+					EposStat,
 				}
 			}
 
@@ -666,9 +666,9 @@ Delegating to a validator
 				amt = amt.Mul(itcAsDec)
 
 				return staking.DirectiveDelegate, staking.Delegate{
-					DelegatorAddress: address.Parse(delegatorAddress.String()),
-					ValidatorAddress: address.Parse(validatorAddress.String()),
-					Amount:           amt.RoundInt(),
+					address.Parse(delegatorAddress.String()),
+					address.Parse(validatorAddress.String()),
+					amt.RoundInt(),
 				}
 			}
 
@@ -733,9 +733,9 @@ Delegating to a validator
 				amt = amt.Mul(itcAsDec)
 
 				return staking.DirectiveUndelegate, staking.Undelegate{
-					DelegatorAddress: address.Parse(delegatorAddress.String()),
-					ValidatorAddress: address.Parse(validatorAddress.String()),
-					Amount:           amt.RoundInt(),
+					address.Parse(delegatorAddress.String()),
+					address.Parse(validatorAddress.String()),
+					amt.RoundInt(),
 				}
 			}
 
@@ -792,7 +792,7 @@ Collect token rewards
 
 			delegateStakePayloadMaker := func() (staking.Directive, interface{}) {
 				return staking.DirectiveCollectRewards, staking.CollectRewards{
-					DelegatorAddress: address.Parse(delegatorAddress.String()),
+					address.Parse(delegatorAddress.String()),
 				}
 			}
 
@@ -846,7 +846,7 @@ func init() {
 		Use:   "staking",
 		Short: "newvalidator, editvalidator, delegate, undelegate or redelegate",
 		Long: `
-Create a staking transaction, sign it, and send off to the Intelchain blockchain
+Create a staking transaction, sign it, and send off to the intelchain blockchain
 `,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cmd.Help()

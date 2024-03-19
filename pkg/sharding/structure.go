@@ -39,10 +39,10 @@ func Structure(node string) ([]RPCRoutes, error) {
 	return result.Result, nil
 }
 
-func CheckAllShards(node, itcAddr string, noPretty bool) (string, error) {
+func CheckAllShards(node, oneAddr string, noPretty bool) (string, error) {
 	var out bytes.Buffer
 	out.WriteString("[")
-	params := []interface{}{itcAddr, "latest"}
+	params := []interface{}{oneAddr, "latest"}
 	s, err := Structure(node)
 	if err != nil {
 		return "", err

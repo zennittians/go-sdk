@@ -194,7 +194,7 @@ func (n *NanoS) GetVersion() (version string, err error) {
 	return fmt.Sprintf("v%d.%d.%d", resp[0], resp[1], resp[2]), nil
 }
 
-func (n *NanoS) GetAddress() (itcAddr string, err error) {
+func (n *NanoS) GetAddress() (oneAddr string, err error) {
 	resp, err := n.Exchange(cmdGetPublicKey, 0, p2DisplayAddress, []byte{})
 	if err != nil {
 		return "", err

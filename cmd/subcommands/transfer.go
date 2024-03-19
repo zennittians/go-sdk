@@ -18,7 +18,7 @@ import (
 	"github.com/zennittians/golang-sdk/pkg/transaction"
 	"github.com/zennittians/golang-sdk/pkg/validation"
 	"github.com/zennittians/intelchain/accounts"
-	"github.com/zennittians/intelchain/core/vm"
+	"github.com/zennittians/intelchain/core"
 
 	"github.com/spf13/cobra"
 )
@@ -153,7 +153,7 @@ func handlerForTransaction(txLog *transactionLog) error {
 
 	var gLimit uint64
 	if gasLimit == "" {
-		gLimit, err = vm.IntrinsicGas([]byte(""), false, true, true, false)
+		gLimit, err = core.IntrinsicGas([]byte(""), false, true, true, false)
 		if handlerForError(txLog, err) != nil {
 			return err
 		}
@@ -342,7 +342,7 @@ func init() {
 		Short: "Create and send a transaction",
 		Args:  cobra.ExactArgs(0),
 		Long: `
-Create a transaction, sign it, and send off to the Intelchain blockchain
+Create a transaction, sign it, and send off to the intelchain blockchain
 `,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if offlineSign {
@@ -456,7 +456,7 @@ Get Nonce From a Account
 		Short: "Send a Offline Signed transaction",
 		Args:  cobra.ExactArgs(0),
 		Long: `
-Send a offline signed transaction to the Intelchain blockchain
+Send a offline signed transaction to the intelchain blockchain
 `,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if givenFilePath == "" {

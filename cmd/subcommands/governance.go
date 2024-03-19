@@ -12,7 +12,7 @@ import (
 func init() {
 	cmdGovernance := &cobra.Command{
 		Use:   "governance",
-		Short: "Interact with the Intelchain spaces",
+		Short: "Interact with the Intelchain spaces on https://snapshot.org",
 		Long: `
 Support interaction with the Intelchain governance space on Snapshot, especially for validators that do not want to import their account private key into either metamask or onewallet.
 `,

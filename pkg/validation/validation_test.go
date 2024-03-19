@@ -11,9 +11,9 @@ func TestIsValidAddress(t *testing.T) {
 		str string
 		exp bool
 	}{
-		{"stk1ay37rp2pc3kjarg7a322vu3sa8j9puahg679z3", true},
+		{"one1ay37rp2pc3kjarg7a322vu3sa8j9puahg679z3", true},
 		{"0x7c41E0668B551f4f902cFaec05B5Bdca68b124CE", true},
-		{"itcfoofoo", false},
+		{"onefoofoo", false},
 		{"0xbarbar", false},
 		{"dsasdadsasaadsas", false},
 		{"32312123213213212321", false},

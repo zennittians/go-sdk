@@ -14,8 +14,14 @@ Example:
     ./itc-csv.py /path/to/csv/file.csv --fast --use-default-passphrase --yes -n https://api.s0.t.intelchain.org/
     ./itc-csv.py /path/to/csv/file.csv --fast --use-default-passphrase --yes --batch-size 100 -n https://api.s0.t.intelchain.org/
 
+Sample CSV file:
+    https://docs.google.com/spreadsheets/d/1nkF8N16S3y28cn7SM1cYJca8lzHPOzyR42S1V-OOAeQ/edit?usp=sharing
+
 For detail help message:
     ./itc-csv.py --help
+
+Install with:
+    curl -O https://raw.githubusercontent.com/zennittians/golang-sdk/master/scripts/itc-csv.py && chmod +x itc-csv.py
 """
 import sys
 import time
@@ -267,7 +273,7 @@ def _parse_args():
     """
     Argument parser that is only used for main execution.
     """
-    parser = argparse.ArgumentParser(description='intelchain CLI, transaction from CSV file wrapper script.')
+    parser = argparse.ArgumentParser(description='Intelchain CLI, transaction from CSV file wrapper script.')
     parser.add_argument("path", type=str, help="The path to the CSV file.")
     parser.add_argument("--node", "-n", dest="node", default="https://api.s0.t.intelchain.org/", type=str,
                         help="The node or endpoint to send the transactions to, default: 'https://api.s0.t.intelchain.org/'.")

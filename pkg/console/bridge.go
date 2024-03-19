@@ -3,13 +3,12 @@ package console
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/zennittians/golang-sdk/pkg/console/jsre"
+	"github.com/zennittians/golang-sdk/pkg/console/prompt"
 	"io"
 	"reflect"
 	"strings"
 	"time"
-
-	"github.com/zennittians/golang-sdk/pkg/console/jsre"
-	"github.com/zennittians/golang-sdk/pkg/console/prompt"
 
 	"github.com/dop251/goja"
 	"github.com/ethereum/go-ethereum/common/hexutil"
