@@ -3,9 +3,9 @@ package rpc
 import (
 	"fmt"
 
+	rpcCommon "github.com/zennittians/go-sdk/pkg/rpc/common"
+	rpcV1 "github.com/zennittians/go-sdk/pkg/rpc/v1"
 	"github.com/pkg/errors"
-	rpcCommon "github.com/zennittians/golang-sdk/pkg/rpc/common"
-	rpcV1 "github.com/zennittians/golang-sdk/pkg/rpc/v1"
 )
 
 var (

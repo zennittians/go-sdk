@@ -3,7 +3,7 @@ package v1
 import (
 	"fmt"
 
-	rpcCommon "github.com/zennittians/golang-sdk/pkg/rpc/common"
+	rpcCommon "github.com/zennittians/go-sdk/pkg/rpc/common"
 )
 
 const (

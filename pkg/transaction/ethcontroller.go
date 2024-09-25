@@ -7,9 +7,9 @@ import (
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/zennittians/golang-sdk/pkg/address"
-	"github.com/zennittians/golang-sdk/pkg/common"
-	"github.com/zennittians/golang-sdk/pkg/rpc"
+	"github.com/zennittians/go-sdk/pkg/address"
+	"github.com/zennittians/go-sdk/pkg/common"
+	"github.com/zennittians/go-sdk/pkg/rpc"
 	"github.com/zennittians/intelchain/accounts"
 	"github.com/zennittians/intelchain/accounts/keystore"
 	"github.com/zennittians/intelchain/core/types"
@@ -116,7 +116,7 @@ func (C *EthController) setGasPrice(gasPrice numeric.Dec) {
 		})
 		return
 	}
-	C.transactionForRPC.params["gas-price"] = gasPrice.Mul(intelloAsDec)
+	C.transactionForRPC.params["gas-price"] = gasPrice.Mul(nanoAsDec)
 }
 
 func (C *EthController) setAmount(amount numeric.Dec) {
@@ -137,7 +137,7 @@ func (C *EthController) setAmount(amount numeric.Dec) {
 
 	gasAsDec := C.transactionForRPC.params["gas-price"].(numeric.Dec)
 	gasAsDec = gasAsDec.Mul(numeric.NewDec(int64(C.transactionForRPC.params["gas-limit"].(uint64))))
-	amountInAtto := amount.Mul(itcAsDec)
+	amountInAtto := amount.Mul(oneAsDec)
 	total := amountInAtto.Add(gasAsDec)
 
 	if !C.Behavior.OfflineSign {
@@ -153,7 +153,7 @@ func (C *EthController) setAmount(amount numeric.Dec) {
 		bal, _ := new(big.Int).SetString(currentBalance[2:], 16)
 		balance := numeric.NewDecFromBigInt(bal)
 		if total.GT(balance) {
-			balanceInOne := balance.Quo(itcAsDec)
+			balanceInOne := balance.Quo(oneAsDec)
 			C.executionError = ErrBadTransactionParam
 			errorMsg := fmt.Sprintf(
 				"insufficient balance of %s in shard %d for the requested transfer of %s",

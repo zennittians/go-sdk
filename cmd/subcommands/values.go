@@ -80,12 +80,12 @@ Check README for details on json file format.
 
 %s
 ./itc --node=[NODE] staking delegate \
-    --delegator-addr <SOME_ITC_ADDRESS> --validator-addr <VALIDATOR_ONE_ADDRESS> \
+    --delegator-addr <SOME_ITC_ADDRESS> --validator-addr <VALIDATOR_ITC_ADDRESS> \
     --amount 10 --passphrase
 
 %s
 ./itc --node=[NODE] staking undelegate \
-    --delegator-addr <SOME_ITC_ADDRESS> --validator-addr <VALIDATOR_ONE_ADDRESS> \
+    --delegator-addr <SOME_ITC_ADDRESS> --validator-addr <VALIDATOR_ITC_ADDRESS> \
     --amount 10 --passphrase
 
 %s

@@ -4,10 +4,10 @@ import (
 	"fmt"
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/pkg/errors"
 	"github.com/zennittians/intelchain/accounts"
 	"github.com/zennittians/intelchain/accounts/keystore"
 	"github.com/zennittians/intelchain/crypto/hash"
+	"github.com/pkg/errors"
 )
 
 func encodeForSigning(typedData *TypedData) ([]byte, error) {

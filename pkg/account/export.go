@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/zennittians/golang-sdk/pkg/store"
+	"github.com/zennittians/go-sdk/pkg/store"
 	"github.com/zennittians/intelchain/accounts"
 )
 

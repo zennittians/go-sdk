@@ -10,13 +10,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/zennittians/golang-sdk/pkg/address"
-	"github.com/zennittians/golang-sdk/pkg/common"
-	"github.com/zennittians/golang-sdk/pkg/rpc"
-	"github.com/zennittians/golang-sdk/pkg/sharding"
-	"github.com/zennittians/golang-sdk/pkg/store"
-	"github.com/zennittians/golang-sdk/pkg/transaction"
-	"github.com/zennittians/golang-sdk/pkg/validation"
+	"github.com/zennittians/go-sdk/pkg/address"
+	"github.com/zennittians/go-sdk/pkg/common"
+	"github.com/zennittians/go-sdk/pkg/rpc"
+	"github.com/zennittians/go-sdk/pkg/sharding"
+	"github.com/zennittians/go-sdk/pkg/store"
+	"github.com/zennittians/go-sdk/pkg/transaction"
+	"github.com/zennittians/go-sdk/pkg/validation"
 	"github.com/zennittians/intelchain/accounts"
 	"github.com/zennittians/intelchain/core"
 
@@ -409,13 +409,13 @@ Create a transaction, sign it, and send off to the intelchain blockchain
 		},
 	}
 
-	cmdTransfer.Flags().Var(&fromAddress, "from", "sender's one address, keystore must exist locally")
-	cmdTransfer.Flags().Var(&toAddress, "to", "the destination one address")
+	cmdTransfer.Flags().Var(&fromAddress, "from", "sender's ITC Address, keystore must exist locally")
+	cmdTransfer.Flags().Var(&toAddress, "to", "the destination ITC Address")
 	cmdTransfer.Flags().BoolVar(&dryRun, "dry-run", false, "do not send signed transaction")
 	cmdTransfer.Flags().BoolVar(&offlineSign, "offline-sign", false, "output offline signing")
 	cmdTransfer.Flags().BoolVar(&trueNonce, "true-nonce", false, "send transaction with on-chain nonce")
-	cmdTransfer.Flags().StringVar(&amount, "amount", "0", "amount to send (ONE)")
-	cmdTransfer.Flags().StringVar(&gasPrice, "gas-price", "100", "gas price to pay (NANO)")
+	cmdTransfer.Flags().StringVar(&amount, "amount", "0", "amount to send (ITC)")
+	cmdTransfer.Flags().StringVar(&gasPrice, "gas-price", "100", "gas price to pay (INTELLO)")
 	cmdTransfer.Flags().StringVar(&gasLimit, "gas-limit", "", "gas limit")
 	cmdTransfer.Flags().StringVar(&inputNonce, "nonce", "", "set nonce for tx")
 	cmdTransfer.Flags().Uint32Var(&fromShardID, "from-shard", 0, "source shard id")
@@ -447,7 +447,7 @@ Get Nonce From a Account
 		},
 	}
 
-	cmdGetNonce.Flags().Var(&fromAddress, "from", "sender's one address, keystore must exist locally")
+	cmdGetNonce.Flags().Var(&fromAddress, "from", "sender's ITC Address, keystore must exist locally")
 	cmdGetNonce.Flags().Uint32Var(&fromShardID, "from-shard", 0, "source shard id")
 	RootCmd.AddCommand(cmdGetNonce)
 

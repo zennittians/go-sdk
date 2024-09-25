@@ -3,8 +3,8 @@ package transaction
 import (
 	"math/big"
 
-	"github.com/zennittians/golang-sdk/pkg/address"
-	"github.com/zennittians/golang-sdk/pkg/rpc"
+	"github.com/zennittians/go-sdk/pkg/address"
+	"github.com/zennittians/go-sdk/pkg/rpc"
 	"github.com/zennittians/intelchain/core/types"
 	"github.com/zennittians/intelchain/numeric"
 )

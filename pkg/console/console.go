@@ -18,16 +18,16 @@ import (
 	"time"
 
 	ethereum_rpc "github.com/ethereum/go-ethereum/rpc"
-	"github.com/zennittians/golang-sdk/pkg/account"
-	"github.com/zennittians/golang-sdk/pkg/address"
-	"github.com/zennittians/golang-sdk/pkg/common"
-	"github.com/zennittians/golang-sdk/pkg/console/jsre"
-	"github.com/zennittians/golang-sdk/pkg/console/jsre/deps"
-	"github.com/zennittians/golang-sdk/pkg/console/prompt"
-	"github.com/zennittians/golang-sdk/pkg/console/web3ext"
-	"github.com/zennittians/golang-sdk/pkg/rpc"
-	"github.com/zennittians/golang-sdk/pkg/store"
-	"github.com/zennittians/golang-sdk/pkg/transaction"
+	"github.com/zennittians/go-sdk/pkg/account"
+	"github.com/zennittians/go-sdk/pkg/address"
+	"github.com/zennittians/go-sdk/pkg/common"
+	"github.com/zennittians/go-sdk/pkg/console/jsre"
+	"github.com/zennittians/go-sdk/pkg/console/jsre/deps"
+	"github.com/zennittians/go-sdk/pkg/console/prompt"
+	"github.com/zennittians/go-sdk/pkg/console/web3ext"
+	"github.com/zennittians/go-sdk/pkg/rpc"
+	"github.com/zennittians/go-sdk/pkg/store"
+	"github.com/zennittians/go-sdk/pkg/transaction"
 	"github.com/zennittians/intelchain/accounts"
 
 	"github.com/dop251/goja"
@@ -58,9 +58,9 @@ type Config struct {
 	Prompter prompt.UserPrompter  // Input prompter to allow interactive user feedback (defaults to TerminalPrompter)
 	Printer  io.Writer            // Output writer to serialize any display strings to (defaults to os.Stdout)
 	Preload  []string             // Absolute paths to JavaScript files to preload
-	NodeUrl  string               // Itc Node url
-	ShardId  int                  // Itc Shard ID
-	Net      string               // Itc  Network
+	NodeUrl  string               // itc Node url
+	ShardId  int                  // itc Shard ID
+	Net      string               // itc  Network
 }
 
 // Console is a JavaScript interpreted runtime environment. It is a fully fledged
@@ -74,9 +74,9 @@ type Console struct {
 	histPath string               // Absolute path to the console scrollback history
 	history  []string             // Scroll history maintained by the console
 	printer  io.Writer            // Output writer to serialize any display strings to
-	nodeUrl  string               // Itc Node url
-	shardId  int                  // Itc Shard ID
-	net      string               // Itc  Network
+	nodeUrl  string               // itc Node url
+	shardId  int                  // itc Shard ID
+	net      string               // itc  Network
 }
 
 // New initializes a JavaScript interpreted runtime environment and sets defaults

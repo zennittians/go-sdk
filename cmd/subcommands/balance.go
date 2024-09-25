@@ -6,10 +6,10 @@ import (
 	"net"
 	"strings"
 
+	"github.com/zennittians/go-sdk/pkg/common"
+	"github.com/zennittians/go-sdk/pkg/rpc"
+	"github.com/zennittians/go-sdk/pkg/sharding"
 	"github.com/spf13/cobra"
-	"github.com/zennittians/golang-sdk/pkg/common"
-	"github.com/zennittians/golang-sdk/pkg/rpc"
-	"github.com/zennittians/golang-sdk/pkg/sharding"
 )
 
 func init() {
@@ -31,7 +31,7 @@ func init() {
 				}
 				balance, _ := balanceRPCReply["result"].(string)
 				bln := common.NewDecFromHex(balance)
-				bln = bln.Quo(itcAsDec)
+				bln = bln.Quo(oneAsDec)
 				var out bytes.Buffer
 				out.WriteString("[")
 				out.WriteString(fmt.Sprintf(`{"shard":%d, "amount":%s}`,

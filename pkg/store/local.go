@@ -8,9 +8,9 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/zennittians/golang-sdk/pkg/address"
-	"github.com/zennittians/golang-sdk/pkg/common"
-	c "github.com/zennittians/golang-sdk/pkg/common"
+	"github.com/zennittians/go-sdk/pkg/address"
+	"github.com/zennittians/go-sdk/pkg/common"
+	c "github.com/zennittians/go-sdk/pkg/common"
 	"github.com/zennittians/intelchain/accounts"
 	"github.com/zennittians/intelchain/accounts/keystore"
 
@@ -47,7 +47,7 @@ var (
 	NoUnlockBadPassphrase = errors.New("could not unlock wallet with given passphrase")
 )
 
-// DescribeLocalAccounts will display all the account alias name and their corresponding one address
+// DescribeLocalAccounts will display all the account alias name and their corresponding ITC Address
 func DescribeLocalAccounts() {
 	fmt.Println(describe)
 	for _, name := range LocalAccounts() {
@@ -70,7 +70,7 @@ func DoesNamedAccountExist(name string) bool {
 	return false
 }
 
-// Returns one address for account name if exists
+// Returns ITC Address for account name if exists
 func AddressFromAccountName(name string) (string, error) {
 	ks := FromAccountName(name)
 	// FIXME: Assume 1 account per keystore for now

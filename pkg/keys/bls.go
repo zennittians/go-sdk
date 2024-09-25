@@ -17,16 +17,16 @@ import (
 	"strings"
 
 	bls_core "github.com/zennittians/bls/ffi/go/bls"
-	"github.com/zennittians/golang-sdk/pkg/common"
-	"github.com/zennittians/golang-sdk/pkg/sharding"
-	"github.com/zennittians/golang-sdk/pkg/validation"
+	"github.com/zennittians/go-sdk/pkg/common"
+	"github.com/zennittians/go-sdk/pkg/sharding"
+	"github.com/zennittians/go-sdk/pkg/validation"
 	"github.com/zennittians/intelchain/crypto/bls"
 	"github.com/zennittians/intelchain/crypto/hash"
 	"github.com/zennittians/intelchain/staking/types"
 	"golang.org/x/crypto/ssh/terminal"
 )
 
-// BlsKey - struct to represent bls key data
+//BlsKey - struct to represent bls key data
 type BlsKey struct {
 	PrivateKey     *bls_core.SecretKey
 	PublicKey      *bls_core.PublicKey
@@ -37,7 +37,7 @@ type BlsKey struct {
 	ShardPublicKey *bls.SerializedPublicKey
 }
 
-// Initialize - initialize a bls key and assign a random private bls key if not already done
+//Initialize - initialize a bls key and assign a random private bls key if not already done
 func (blsKey *BlsKey) Initialize() {
 	if blsKey.PrivateKey == nil {
 		blsKey.PrivateKey = bls.RandPrivateKey()
@@ -47,7 +47,7 @@ func (blsKey *BlsKey) Initialize() {
 	}
 }
 
-// Reset - resets the currently assigned private and public key fields
+//Reset - resets the currently assigned private and public key fields
 func (blsKey *BlsKey) Reset() {
 	blsKey.PrivateKey = nil
 	blsKey.PrivateKeyHex = ""

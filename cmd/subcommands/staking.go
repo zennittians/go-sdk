@@ -12,13 +12,13 @@ import (
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	bls_core "github.com/zennittians/bls/ffi/go/bls"
-	"github.com/zennittians/golang-sdk/pkg/address"
-	"github.com/zennittians/golang-sdk/pkg/common"
-	"github.com/zennittians/golang-sdk/pkg/keys"
-	"github.com/zennittians/golang-sdk/pkg/ledger"
-	"github.com/zennittians/golang-sdk/pkg/rpc"
-	"github.com/zennittians/golang-sdk/pkg/store"
-	"github.com/zennittians/golang-sdk/pkg/transaction"
+	"github.com/zennittians/go-sdk/pkg/address"
+	"github.com/zennittians/go-sdk/pkg/common"
+	"github.com/zennittians/go-sdk/pkg/keys"
+	"github.com/zennittians/go-sdk/pkg/ledger"
+	"github.com/zennittians/go-sdk/pkg/rpc"
+	"github.com/zennittians/go-sdk/pkg/store"
+	"github.com/zennittians/go-sdk/pkg/transaction"
 	"github.com/zennittians/intelchain/accounts"
 	"github.com/zennittians/intelchain/accounts/keystore"
 	"github.com/zennittians/intelchain/common/denominations"
@@ -58,16 +58,16 @@ var (
 	validatorAddress          itcAddress
 	stakingAmount             string
 	active                    string
-	itcAsDec                  = numeric.NewDec(denominations.Itc)
-	intelloAsDec              = numeric.NewDec(denominations.Intello)
+	oneAsDec                  = numeric.NewDec(denominations.Itc)
+	nanoAsDec                 = numeric.NewDec(denominations.Intello)
 )
 
 var (
 	errSelfDelegationTooSmall          = errors.New("amount can not be less than min-self-delegation")
 	errSelfDelegationTooLarge          = errors.New("amount can not be greater than max-total-delegation")
 	errInvalidTotalDelegation          = errors.New("max-total-delegation can not be bigger than max-total-delegation")
-	errMinSelfDelegationTooSmall       = errors.New("min-self-delegation can not be less than 1 ONE")
-	errMaxTotalDelegationTooSmall      = errors.New("max-total-delegation can not be less than 1 ONE")
+	errMinSelfDelegationTooSmall       = errors.New("min-self-delegation can not be less than 1 ITC")
+	errMaxTotalDelegationTooSmall      = errors.New("max-total-delegation can not be less than 1 ITC")
 	errInvalidMaxTotalDelegation       = errors.New("max-total-delegation can not be less than min-self-delegation")
 	errCommissionRateTooLarge          = errors.New("rate can not be greater than max-commission-rate")
 	errChangeRateTooLarge              = errors.New("max-change-rate can not be greater than max-commission-rate")
@@ -90,7 +90,7 @@ func createStakingTransaction(nonce uint64, f staking.StakeMsgFulfiller) (*staki
 	if err != nil {
 		return nil, err
 	}
-	gPrice = gPrice.Mul(intelloAsDec)
+	gPrice = gPrice.Mul(nanoAsDec)
 	directive, payload := f()
 	data, err := rlp.EncodeToBytes(payload)
 	if err != nil {
@@ -200,13 +200,13 @@ func confirmTx(networkHandler *rpc.HTTPMessenger, confirmWaitTime uint32, txHash
 }
 
 func delegationAmountSanityCheck(minSelfDelegation *numeric.Dec, maxTotalDelegation *numeric.Dec, amount *numeric.Dec) error {
-	// MinSelfDelegation must be >= 1 ONE
-	if minSelfDelegation != nil && minSelfDelegation.LT(itcAsDec) {
+	// MinSelfDelegation must be >= 1 ITC
+	if minSelfDelegation != nil && minSelfDelegation.LT(oneAsDec) {
 		return errMinSelfDelegationTooSmall
 	}
 
 	// MaxTotalDelegation must be a
-	if maxTotalDelegation != nil && maxTotalDelegation.LT(itcAsDec) {
+	if maxTotalDelegation != nil && maxTotalDelegation.LT(oneAsDec) {
 		return errMaxTotalDelegationTooSmall
 	}
 
@@ -370,9 +370,9 @@ Create a new validator"
 				return e2
 			}
 
-			amt = amt.Mul(itcAsDec)
-			minSelfDel = minSelfDel.Mul(itcAsDec)
-			maxTotalDel = maxTotalDel.Mul(itcAsDec)
+			amt = amt.Mul(oneAsDec)
+			minSelfDel = minSelfDel.Mul(oneAsDec)
+			maxTotalDel = maxTotalDel.Mul(oneAsDec)
 
 			err = delegationAmountSanityCheck(&minSelfDel, &maxTotalDel, &amt)
 			if err != nil {
@@ -536,7 +536,7 @@ Create a new validator"
 				if err != nil {
 					return err
 				}
-				amount = amount.Mul(itcAsDec)
+				amount = amount.Mul(oneAsDec)
 				minSelfDel = &amount
 				mSelDel = amount.RoundInt()
 			}
@@ -548,7 +548,7 @@ Create a new validator"
 				if err != nil {
 					return err
 				}
-				amount = amount.Mul(itcAsDec)
+				amount = amount.Mul(oneAsDec)
 				maxTotalDel = &amount
 				mTotalDel = amount.RoundInt()
 			}
@@ -663,7 +663,7 @@ Delegating to a validator
 
 			delegateStakePayloadMaker := func() (staking.Directive, interface{}) {
 				amt, _ := common.NewDecFromString(stakingAmount)
-				amt = amt.Mul(itcAsDec)
+				amt = amt.Mul(oneAsDec)
 
 				return staking.DirectiveDelegate, staking.Delegate{
 					address.Parse(delegatorAddress.String()),
@@ -730,7 +730,7 @@ Delegating to a validator
 
 			delegateStakePayloadMaker := func() (staking.Directive, interface{}) {
 				amt, _ := common.NewDecFromString(stakingAmount)
-				amt = amt.Mul(itcAsDec)
+				amt = amt.Mul(oneAsDec)
 
 				return staking.DirectiveUndelegate, staking.Undelegate{
 					address.Parse(delegatorAddress.String()),

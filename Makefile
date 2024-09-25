@@ -15,6 +15,7 @@ upload-path-darwin := 's3://pub.intelchain.org/release/darwin-x86_64/mainnet/itc
 upload-path-linux := 's3://pub.intelchain.org/release/linux-x86_64/mainnet/itc'
 upload-path-linux-version := 's3://pub.intelchain.org/release/linux-x86_64/mainnet/itc_version'
 uname := $(shell uname)
+GOPATH := $(shell go env GOPATH)
 
 env := GO111MODULE=on
 
@@ -22,17 +23,17 @@ DIR := ${CURDIR}
 export CGO_LDFLAGS=-L$(DIR)/dist/lib -Wl,-rpath -Wl,\$ORIGIN/lib
 
 all:
-	source $(shell go env GOPATH)/src/github.com/zennittians/intelchain/scripts/setup_bls_build_flags.sh && $(env) go build -o $(cli) -ldflags="$(ldflags)" cmd/main.go
+	source ${GOPATH}/src/github.com/zennittians/intelchain/scripts/setup_bls_build_flags.sh && $(env) go build -o $(cli) -ldflags="$(ldflags)" cmd/main.go
 	cp $(cli) itc
 
 static:
-	make -C $(shell go env GOPATH)/src/github.com/zennittians/mcl
-	make -C $(shell go env GOPATH)/src/github.com/zennittians/bls minimised_static BLS_SWAP_G=1
-	source $(shell go env GOPATH)/src/github.com/zennittians/intelchain/scripts/setup_bls_build_flags.sh && $(env) go build -o $(cli) -ldflags="$(ldflags) -w -extldflags \"-static\"" cmd/main.go
+	make -C ${GOPATH}/src/github.com/zennittians/mcl
+	make -C ${GOPATH}/src/github.com/zennittians/bls minimised_static BLS_SWAP_G=1
+	source ${GOPATH}/src/github.com/zennittians/intelchain/scripts/setup_bls_build_flags.sh && $(env) go build -o $(cli) -ldflags="$(ldflags) -w -extldflags \"-static\"" cmd/main.go
 	cp $(cli) itc
 
 debug:
-	source $(shell go env GOPATH)/src/github.com/zennittians/intelchain/scripts/setup_bls_build_flags.sh && $(env) go build $(flags) -o $(cli) -ldflags="$(ldflags)" cmd/main.go
+	source ${GOPATH}/src/github.com/zennittians/intelchain/scripts/setup_bls_build_flags.sh && $(env) go build $(flags) -o $(cli) -ldflags="$(ldflags)" cmd/main.go
 	cp $(cli) itc
 
 install:all

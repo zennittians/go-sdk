@@ -13,7 +13,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/zennittians/golang-sdk/pkg/address"
+	"github.com/zennittians/go-sdk/pkg/address"
 	"github.com/zennittians/intelchain/core/types"
 	staking "github.com/zennittians/intelchain/staking/types"
 )
@@ -39,26 +39,26 @@ func getLedger() *NanoS {
 // ProcessAddressCommand list the address associated with Ledger Nano S
 func GetAddress() string {
 	n := getLedger()
-	oneAddr, err := n.GetAddress()
+	itcAddr, err := n.GetAddress()
 	if err != nil {
-		log.Fatalln("Couldn't get one address:", err)
+		log.Fatalln("Couldn't get ITC Address:", err)
 		os.Exit(-1)
 	}
 
-	return oneAddr
+	return itcAddr
 }
 
 // ProcessAddressCommand list the address associated with Ledger Nano S
 func ProcessAddressCommand() {
 	n := getLedger()
-	oneAddr, err := n.GetAddress()
+	itcAddr, err := n.GetAddress()
 	if err != nil {
-		log.Fatalln("Couldn't get one address:", err)
+		log.Fatalln("Couldn't get ITC Address:", err)
 		os.Exit(-1)
 	}
 
 	fmt.Printf("%-24s\t\t%23s\n", "NAME", "ADDRESS")
-	fmt.Printf("%-48s\t%s\n", "Ledger Nano S", oneAddr)
+	fmt.Printf("%-48s\t%s\n", "Ledger Nano S", itcAddr)
 }
 
 // SignTx signs the given transaction with the requested account.

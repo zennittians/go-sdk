@@ -11,7 +11,7 @@ const (
 	HashLength = ethCommon.HashLength
 	// AddressLength is the expected length of the address
 	AddressLength    = ethCommon.AddressLength
-	Bech32AddressHRP = "one"
+	Bech32AddressHRP = "itc"
 )
 
 type T = ethCommon.Address

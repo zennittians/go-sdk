@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	ethCommon "github.com/ethereum/go-ethereum/common"
-	"github.com/zennittians/golang-sdk/pkg/address"
+	"github.com/zennittians/go-sdk/pkg/address"
 	"github.com/zennittians/intelchain/accounts/keystore"
 
 	// "github.com/ethereum/go-ethereum/crypto"
@@ -33,7 +33,7 @@ func ListKeys(keystoreDir string) {
 	ks := keystore.NewKeyStore(itcCLIDir, scryptN, scryptP)
 	// keystore.KeyStore
 	allAccounts := ks.Accounts()
-	fmt.Printf("Intelchain Address:%s File URL:\n", strings.Repeat(" ", ethCommon.AddressLength*2))
+	fmt.Printf("intelchain Address:%s File URL:\n", strings.Repeat(" ", ethCommon.AddressLength*2))
 	for _, account := range allAccounts {
 		fmt.Printf("%s\t\t %s\n", address.ToBech32(account.Address), account.URL)
 	}

@@ -14,11 +14,11 @@ import (
 )
 
 var (
-	voteToNumberMapping = map[string]int64{
-		"for":     1,
-		"against": 2,
-		"abstain": 3,
-	}
+		voteToNumberMapping = map[string]int64{
+			"for": 1,
+			"against": 2,
+			"abstain": 3,
+		}
 )
 
 type Vote struct {
@@ -28,9 +28,9 @@ type Vote struct {
 	ProposalType string // --proposal-type
 	Choice       string // --choice
 	// Privacy      string // --privacy
-	App       string // --app
-	Reason    string // --reason
-	Timestamp int64  // not exposed to the end user
+	App          string // --app
+	Reason       string // --reason
+	Timestamp    int64  // not exposed to the end user
 }
 
 func (v *Vote) ToEIP712() (*TypedData, error) {
@@ -101,42 +101,42 @@ func (v *Vote) ToEIP712() (*TypedData, error) {
 				"unexpected value of choice %s (expected uint32[])", choice,
 			)
 		}
-		// The space between --choice {value} does not matter to snapshot.org
-		// But for comparing with the snapshot-js library, remove it
-		// itc governance vote-proposal \
-		// 		--space intelchain-mainnet.eth \
-		// 		--proposal 0xTruncated \
-		// # either quadratic or weighted
-		// 		--proposal-type {"quadratic","weighted"} \
-		// # 20, 20, 40 of my vote (total 80) goes to 1, 2, 3 - note the single / double quotes
-		// 		--choice '{"1":20,"2":20,"3":40}' \
-		// 		--key <name of pk>
+	// The space between --choice {value} does not matter to snapshot.org
+	// But for comparing with the snapshot-js library, remove it
+	// itc governance vote-proposal \
+	// 		--space intelchain-mainnet.eth \
+	// 		--proposal 0xTruncated \
+	// # either quadratic or weighted
+	// 		--proposal-type {"quadratic","weighted"} \
+	// # 20, 20, 40 of my vote (total 80) goes to 1, 2, 3 - note the single / double quotes
+	// 		--choice '{"1":20,"2":20,"3":40}' \
+	// 		--key <name of pk>
 	} else if v.ProposalType == "quadratic" || v.ProposalType == "weighted" {
 		myType = append(myType, eip712.Type{
 			Name: "choice",
 			Type: "string",
 		})
 		choice = v.Choice
-		// TODO Untested
-		// itc governance vote-proposal \
-		// 		--space intelchain-mainnet.eth \
-		// 		--proposal 0xTruncated \
-		// 		--proposal-type ANY \
-		// 		--choice "unknown-format" \
-		// 		--key <name of pk>
-		//		--privacy shutter
-		// } else if v.Privacy == "shutter" {
-		// 	myType = append(myType, eip712.Type{
-		// 		Name: "choice",
-		// 		Type: "string",
-		// 	})
-		// 	choice = v.Choice
-		// itc governance vote-proposal \
-		// 		--space intelchain-mainnet.eth \
-		// 		--proposal 0xTruncated \
-		// 		--proposal-type single-choice \
-		// 		--choice 1 \
-		// 		--key <name of pk>
+	// TODO Untested
+	// itc governance vote-proposal \
+	// 		--space intelchain-mainnet.eth \
+	// 		--proposal 0xTruncated \
+	// 		--proposal-type ANY \
+	// 		--choice "unknown-format" \
+	// 		--key <name of pk>
+	//		--privacy shutter
+	// } else if v.Privacy == "shutter" {
+	// 	myType = append(myType, eip712.Type{
+	// 		Name: "choice",
+	// 		Type: "string",
+	// 	})
+	// 	choice = v.Choice
+	// itc governance vote-proposal \
+	// 		--space intelchain-mainnet.eth \
+	// 		--proposal 0xTruncated \
+	// 		--proposal-type single-choice \
+	// 		--choice 1 \
+	// 		--key <name of pk>
 	} else if v.ProposalType == "single-choice" {
 		myType = append(myType, eip712.Type{
 			Name: "choice",
@@ -149,13 +149,13 @@ func (v *Vote) ToEIP712() (*TypedData, error) {
 		} else {
 			choice = math.NewHexOrDecimal256(int64(x))
 		}
-		// itc governance vote-proposal \
-		// 		--space intelchain-mainnet.eth \
-		// 		--proposal 0xTruncated \
-		// 		--proposal-type basic \
-		// # any character case works
-		// 		--choice {aBstAin/agAiNst/for} \
-		// 		--key <name of pk>
+	// itc governance vote-proposal \
+	// 		--space intelchain-mainnet.eth \
+	// 		--proposal 0xTruncated \
+	// 		--proposal-type basic \
+	// # any character case works
+	// 		--choice {aBstAin/agAiNst/for} \
+	// 		--key <name of pk>
 	} else if v.ProposalType == "basic" {
 		myType = append(myType, eip712.Type{
 			Name: "choice",

@@ -3,7 +3,7 @@ package validation
 import (
 	"testing"
 
-	"github.com/zennittians/golang-sdk/pkg/sharding"
+	"github.com/zennittians/go-sdk/pkg/sharding"
 )
 
 func TestIsValidAddress(t *testing.T) {

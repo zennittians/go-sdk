@@ -5,15 +5,15 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/zennittians/golang-sdk/pkg/common"
-	"github.com/zennittians/golang-sdk/pkg/rpc"
+	"github.com/zennittians/go-sdk/pkg/common"
+	"github.com/zennittians/go-sdk/pkg/rpc"
 	"github.com/zennittians/intelchain/common/denominations"
 	"github.com/zennittians/intelchain/numeric"
 )
 
 var (
-	intelloAsDec = numeric.NewDec(denominations.Intello)
-	itcAsDec     = numeric.NewDec(denominations.Itc)
+	nanoAsDec = numeric.NewDec(denominations.Intello)
+	oneAsDec  = numeric.NewDec(denominations.Itc)
 )
 
 // RPCRoutes reflects the RPC endpoints of the target network across shards
@@ -39,10 +39,10 @@ func Structure(node string) ([]RPCRoutes, error) {
 	return result.Result, nil
 }
 
-func CheckAllShards(node, oneAddr string, noPretty bool) (string, error) {
+func CheckAllShards(node, itcAddr string, noPretty bool) (string, error) {
 	var out bytes.Buffer
 	out.WriteString("[")
-	params := []interface{}{oneAddr, "latest"}
+	params := []interface{}{itcAddr, "latest"}
 	s, err := Structure(node)
 	if err != nil {
 		return "", err
@@ -60,7 +60,7 @@ func CheckAllShards(node, oneAddr string, noPretty bool) (string, error) {
 		}
 		balance, _ := balanceRPCReply["result"].(string)
 		bln := common.NewDecFromHex(balance)
-		bln = bln.Quo(itcAsDec)
+		bln = bln.Quo(oneAsDec)
 		out.WriteString(fmt.Sprintf(`{"shard":%d, "amount":%s}`,
 			shard.ShardID,
 			bln.String(),

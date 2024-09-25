@@ -1,16 +1,15 @@
 package cmd
 
 import (
+	ethereum_rpc "github.com/ethereum/go-ethereum/rpc"
+	"github.com/zennittians/go-sdk/pkg/common"
+	"github.com/zennittians/go-sdk/pkg/console"
+	"github.com/zennittians/go-sdk/pkg/rpc"
+	"github.com/mitchellh/go-homedir"
+	"github.com/spf13/cobra"
 	"log"
 	"os"
 	"path"
-
-	ethereum_rpc "github.com/ethereum/go-ethereum/rpc"
-	"github.com/mitchellh/go-homedir"
-	"github.com/spf13/cobra"
-	"github.com/zennittians/golang-sdk/pkg/common"
-	"github.com/zennittians/golang-sdk/pkg/console"
-	"github.com/zennittians/golang-sdk/pkg/rpc"
 )
 
 func init() {

@@ -13,13 +13,13 @@ import (
 	"github.com/tyler-smith/go-bip39"
 	"golang.org/x/crypto/ssh/terminal"
 
-	"github.com/zennittians/golang-sdk/pkg/account"
-	c "github.com/zennittians/golang-sdk/pkg/common"
-	"github.com/zennittians/golang-sdk/pkg/keys"
-	"github.com/zennittians/golang-sdk/pkg/ledger"
-	"github.com/zennittians/golang-sdk/pkg/mnemonic"
-	"github.com/zennittians/golang-sdk/pkg/store"
-	"github.com/zennittians/golang-sdk/pkg/validation"
+	"github.com/zennittians/go-sdk/pkg/account"
+	c "github.com/zennittians/go-sdk/pkg/common"
+	"github.com/zennittians/go-sdk/pkg/keys"
+	"github.com/zennittians/go-sdk/pkg/ledger"
+	"github.com/zennittians/go-sdk/pkg/mnemonic"
+	"github.com/zennittians/go-sdk/pkg/store"
+	"github.com/zennittians/go-sdk/pkg/validation"
 )
 
 const (

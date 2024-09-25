@@ -10,12 +10,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/zennittians/golang-sdk/pkg/address"
-	"github.com/zennittians/golang-sdk/pkg/common"
-	"github.com/zennittians/golang-sdk/pkg/rpc"
-	rpcEth "github.com/zennittians/golang-sdk/pkg/rpc/eth"
-	"github.com/zennittians/golang-sdk/pkg/store"
-	"github.com/zennittians/golang-sdk/pkg/transaction"
+	"github.com/zennittians/go-sdk/pkg/address"
+	"github.com/zennittians/go-sdk/pkg/common"
+	"github.com/zennittians/go-sdk/pkg/rpc"
+	rpcEth "github.com/zennittians/go-sdk/pkg/rpc/eth"
+	"github.com/zennittians/go-sdk/pkg/store"
+	"github.com/zennittians/go-sdk/pkg/transaction"
 	"github.com/zennittians/intelchain/accounts"
 	"github.com/zennittians/intelchain/core"
 
@@ -214,7 +214,7 @@ func init() {
 		Short: "Create and send an Ethereum compatible transaction",
 		Args:  cobra.ExactArgs(0),
 		Long: `
-Create an Ethereum compatible transaction, sign it, and send off to the Intelchain blockchain
+Create an Ethereum compatible transaction, sign it, and send off to the intelchain blockchain
 `,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if offlineSign {
@@ -282,8 +282,8 @@ Create an Ethereum compatible transaction, sign it, and send off to the Intelcha
 		},
 	}
 
-	cmdEthTransfer.Flags().Var(&fromAddress, "from", "sender's one address, keystore must exist locally")
-	cmdEthTransfer.Flags().Var(&toAddress, "to", "the destination one address")
+	cmdEthTransfer.Flags().Var(&fromAddress, "from", "sender's ITC Address, keystore must exist locally")
+	cmdEthTransfer.Flags().Var(&toAddress, "to", "the destination ITC Address")
 	cmdEthTransfer.Flags().BoolVar(&dryRun, "dry-run", false, "do not send signed transaction")
 	cmdEthTransfer.Flags().BoolVar(&offlineSign, "offline-sign", false, "output offline signing")
 	cmdEthTransfer.Flags().BoolVar(&trueNonce, "true-nonce", false, "send transaction with on-chain nonce")
@@ -304,7 +304,7 @@ Create an Ethereum compatible transaction, sign it, and send off to the Intelcha
 		Short: "Send a Offline Signed Ethereum transaction",
 		Args:  cobra.ExactArgs(0),
 		Long: `
-Send a offline signed transaction to the Intelchain blockchain (on the same shard)
+Send a offline signed transaction to the intelchain blockchain (on the same shard)
 `,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if givenFilePath == "" {

@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"github.com/zennittians/golang-sdk/pkg/common"
-	"github.com/zennittians/golang-sdk/pkg/rpc"
+	"github.com/zennittians/go-sdk/pkg/common"
+	"github.com/zennittians/go-sdk/pkg/rpc"
 )
 
 var (
@@ -40,7 +40,7 @@ Look up information about delegation
 
 	cmdBlockchain := &cobra.Command{
 		Use:   "blockchain",
-		Short: "Interact with the intelchain.org Blockchain",
+		Short: "Interact with the Intelchain Blockchain",
 		Long: `
 Query Intelchain's blockchain for completed transaction, historic records
 `,
@@ -143,7 +143,7 @@ High level information about transaction, like blockNumber, blockHash
 		Use:     "current-nonce",
 		Short:   "Current nonce of an account",
 		Args:    cobra.ExactArgs(1),
-		Long:    `Current nonce number of a one-address`,
+		Long:    `Current nonce number of a itc-address`,
 		PreRunE: validateAddress,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return request(rpc.Method.GetTransactionCount, []interface{}{addr.address})

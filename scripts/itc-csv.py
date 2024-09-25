@@ -21,7 +21,7 @@ For detail help message:
     ./itc-csv.py --help
 
 Install with:
-    curl -O https://raw.githubusercontent.com/zennittians/golang-sdk/master/scripts/itc-csv.py && chmod +x itc-csv.py
+    curl -O https://raw.githubusercontent.com/zennittians/go-sdk/master/scripts/itc-csv.py && chmod +x itc-csv.py
 """
 import sys
 import time

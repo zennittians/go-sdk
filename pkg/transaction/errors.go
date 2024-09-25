@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/zennittians/golang-sdk/pkg/rpc"
+	"github.com/zennittians/go-sdk/pkg/rpc"
 )
 
 var (

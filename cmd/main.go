@@ -5,10 +5,10 @@ import (
 	"os"
 	"path"
 
-	cmd "github.com/zennittians/golang-sdk/cmd/subcommands"
+	cmd "github.com/zennittians/go-sdk/cmd/subcommands"
 	// Need this side effect
+	_ "github.com/zennittians/go-sdk/pkg/store"
 	"github.com/spf13/cobra"
-	_ "github.com/zennittians/golang-sdk/pkg/store"
 )
 
 var (

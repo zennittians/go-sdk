@@ -2,9 +2,9 @@ package cmd
 
 import (
 	"github.com/pkg/errors"
-	"github.com/zennittians/golang-sdk/pkg/address"
-	"github.com/zennittians/golang-sdk/pkg/common"
-	"github.com/zennittians/golang-sdk/pkg/validation"
+	"github.com/zennittians/go-sdk/pkg/address"
+	"github.com/zennittians/go-sdk/pkg/common"
+	"github.com/zennittians/go-sdk/pkg/validation"
 )
 
 type itcAddress struct {
@@ -22,7 +22,7 @@ func (itcAddress *itcAddress) Set(s string) error {
 	}
 	_, err = address.Bech32ToAddress(s)
 	if err != nil {
-		return errors.Wrap(err, "not a valid itc address")
+		return errors.Wrap(err, "not a valid ITC Address")
 	}
 	itcAddress.address = s
 	return nil

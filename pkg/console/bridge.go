@@ -3,8 +3,8 @@ package console
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/zennittians/golang-sdk/pkg/console/jsre"
-	"github.com/zennittians/golang-sdk/pkg/console/prompt"
+	"github.com/zennittians/go-sdk/pkg/console/jsre"
+	"github.com/zennittians/go-sdk/pkg/console/prompt"
 	"io"
 	"reflect"
 	"strings"

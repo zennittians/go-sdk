@@ -8,7 +8,7 @@ import (
 
 	"github.com/valyala/fasthttp"
 
-	"github.com/zennittians/golang-sdk/pkg/common"
+	"github.com/zennittians/go-sdk/pkg/common"
 )
 
 var (

@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/btcsuite/btcd/btcec"
-	"github.com/zennittians/golang-sdk/pkg/common"
+	"github.com/zennittians/go-sdk/pkg/common"
 	"github.com/zennittians/intelchain/accounts"
 )
 

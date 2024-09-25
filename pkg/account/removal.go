@@ -5,9 +5,9 @@ import (
 	"os"
 	"path"
 
+	"github.com/zennittians/go-sdk/pkg/common"
+	"github.com/zennittians/go-sdk/pkg/store"
 	"github.com/mitchellh/go-homedir"
-	"github.com/zennittians/golang-sdk/pkg/common"
-	"github.com/zennittians/golang-sdk/pkg/store"
 )
 
 // RemoveAccount - removes an account from the keystore

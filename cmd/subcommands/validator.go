@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/zennittians/go-sdk/pkg/rpc"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
-	"github.com/zennittians/golang-sdk/pkg/rpc"
 )
 
 var (

@@ -3,7 +3,7 @@ package account
 import (
 	"testing"
 
-	"github.com/zennittians/golang-sdk/pkg/store"
+	"github.com/zennittians/go-sdk/pkg/store"
 )
 
 func TestAccountGetsRemoved(t *testing.T) {

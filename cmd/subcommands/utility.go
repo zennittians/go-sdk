@@ -8,8 +8,8 @@ import (
 
 	"github.com/spf13/cobra"
 	bls_core "github.com/zennittians/bls/ffi/go/bls"
-	"github.com/zennittians/golang-sdk/pkg/address"
-	"github.com/zennittians/golang-sdk/pkg/rpc"
+	"github.com/zennittians/go-sdk/pkg/address"
+	"github.com/zennittians/go-sdk/pkg/rpc"
 	"github.com/zennittians/intelchain/crypto/bls"
 )
 
@@ -62,7 +62,7 @@ func init() {
 	cmdUtilities.AddCommand([]*cobra.Command{{
 		Use:   "bech32-to-addr",
 		Args:  cobra.ExactArgs(1),
-		Short: "0x Address of a bech32 one-address",
+		Short: "0x Address of a bech32 itc-address",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			addr, err := address.Bech32ToAddress(args[0])
 			if err != nil {
@@ -74,7 +74,7 @@ func init() {
 	}, {
 		Use:   "addr-to-bech32",
 		Args:  cobra.ExactArgs(1),
-		Short: "bech32 one-address of an 0x address",
+		Short: "bech32 itc-address of an 0x address",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			fmt.Println(address.ToBech32(address.Parse(args[0])))
 			return nil

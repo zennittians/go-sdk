@@ -10,18 +10,18 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/zennittians/golang-sdk/pkg/address"
+	"github.com/zennittians/go-sdk/pkg/address"
 
 	color "github.com/fatih/color"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
-	"github.com/zennittians/golang-sdk/pkg/common"
-	"github.com/zennittians/golang-sdk/pkg/rpc"
-	rpcEth "github.com/zennittians/golang-sdk/pkg/rpc/eth"
-	rpcV1 "github.com/zennittians/golang-sdk/pkg/rpc/v1"
-	"github.com/zennittians/golang-sdk/pkg/sharding"
-	"github.com/zennittians/golang-sdk/pkg/store"
+	"github.com/zennittians/go-sdk/pkg/common"
+	"github.com/zennittians/go-sdk/pkg/rpc"
+	rpcEth "github.com/zennittians/go-sdk/pkg/rpc/eth"
+	rpcV1 "github.com/zennittians/go-sdk/pkg/rpc/v1"
+	"github.com/zennittians/go-sdk/pkg/sharding"
+	"github.com/zennittians/go-sdk/pkg/store"
 )
 
 var (
@@ -33,7 +33,7 @@ var (
 	rpcPrefix       string
 	keyStoreDir     string
 	givenFilePath   string
-	endpoint        = regexp.MustCompile(`https://api\.s[0-9]\..*\.hmny\.io`)
+	endpoint        = regexp.MustCompile(`https://api\.s[0-9]\..*\.intelchain\.org`)
 	request         = func(method string, params []interface{}) error {
 		if !noLatest {
 			params = append(params, "latest")
@@ -226,7 +226,7 @@ func endpointToChainID(nodeAddr string) chainIDWrapper {
 }
 
 func validateAddress(cmd *cobra.Command, args []string) error {
-	// Check if input valid one address
+	// Check if input valid ITC Address
 	tmpAddr := itcAddress{}
 	if err := tmpAddr.Set(args[0]); err != nil {
 		// Check if input is valid account name
@@ -237,7 +237,7 @@ func validateAddress(cmd *cobra.Command, args []string) error {
 
 		bech32Addr := address.ToBech32(address.Parse(args[0]))
 		if bech32Addr == "" {
-			return fmt.Errorf("Invalid one address/Invalid account name: %s", args[0])
+			return fmt.Errorf("Invalid ITC Address/Invalid account name: %s", args[0])
 		}
 
 		tmpAddr = itcAddress{bech32Addr}

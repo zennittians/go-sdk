@@ -3,21 +3,20 @@ package account
 import (
 	"encoding/hex"
 	"fmt"
+	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/mitchellh/go-homedir"
 	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/mitchellh/go-homedir"
-
 	"github.com/btcsuite/btcd/btcec"
 	mapset "github.com/deckarep/golang-set"
-	"github.com/zennittians/golang-sdk/pkg/address"
-	"github.com/zennittians/golang-sdk/pkg/common"
-	"github.com/zennittians/golang-sdk/pkg/mnemonic"
-	"github.com/zennittians/golang-sdk/pkg/store"
+	"github.com/zennittians/go-sdk/pkg/address"
+	"github.com/zennittians/go-sdk/pkg/common"
+	"github.com/zennittians/go-sdk/pkg/mnemonic"
+	"github.com/zennittians/go-sdk/pkg/store"
 	"github.com/zennittians/intelchain/accounts/keystore"
 )
 

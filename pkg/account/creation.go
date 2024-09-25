@@ -3,9 +3,9 @@ package account
 import (
 	"errors"
 
-	"github.com/zennittians/golang-sdk/pkg/keys"
-	"github.com/zennittians/golang-sdk/pkg/mnemonic"
-	"github.com/zennittians/golang-sdk/pkg/store"
+	"github.com/zennittians/go-sdk/pkg/keys"
+	"github.com/zennittians/go-sdk/pkg/mnemonic"
+	"github.com/zennittians/go-sdk/pkg/store"
 )
 
 var (
